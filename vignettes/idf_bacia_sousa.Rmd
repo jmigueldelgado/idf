@@ -1,0 +1,49 @@
+---
+title: "IDFs para a bacia do rio Sousa na zona da Senhora do Salto"
+author: "JM Delgado"
+date: "`r Sys.Date()`"
+output:
+  slidy_presentation:
+    duration: 5    
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Carregar bacias e definir o centróide
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(sf,warn.conflicts=FALSE)
+library(dplyr,warn.conflicts=FALSE)
+library(knitr,warn.conflicts=FALSE)
+library(idf)
+
+bacia1=st_read('~/proj/sra_salto/bacia_1')
+
+centroid1=st_centroid(bacia1)
+
+area=st_area(bacia1)
+```
+
+
+```{r , include = FALSE}
+d=lubridate::as.duration(185*60)
+f=100
+idf_sf %>%
+    dplyr::filter(limite_superior>d & limite_inferior<d,T==f) %>%   dplyr::select(a,b) %>%
+    dplyr::mutate(i=a*as.numeric(d,'minutes')^b)
+
+i=df2i(d,f,centroid1) # em mm/h
+p=i*185/60
+i$var1.pred
+C=0.4 # por exemplo
+
+C*i$var1.pred*area /(3600*1000) # conversao para m/s para obter m3/s
+
+```
