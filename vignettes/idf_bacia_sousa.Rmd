@@ -11,9 +11,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Carregar bacias e definir o centróide
+# Carregar bacias e definir o centróide e área
 
-```{r setup, include = FALSE}
+```{r results='asis', warning=FALSE, message=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -31,19 +31,15 @@ centroid1=st_centroid(bacia1)
 area=st_area(bacia1)
 ```
 
+# Carregar bacias e definir o centróide e área
 
-```{r , include = FALSE}
-d=lubridate::as.duration(185*60)
-f=100
-idf_sf %>%
-    dplyr::filter(limite_superior>d & limite_inferior<d,T==f) %>%   dplyr::select(a,b) %>%
-    dplyr::mutate(i=a*as.numeric(d,'minutes')^b)
 
-i=df2i(d,f,centroid1) # em mm/h
-p=i*185/60
-i$var1.pred
-C=0.4 # por exemplo
-
-C*i$var1.pred*area /(3600*1000) # conversao para m/s para obter m3/s
-
+```{r results='asis', warning=FALSE, message=FALSE}
+d=lubridate::as.duration(185*60)            # atribuir valor do tempo de concentração
+f=100                                      # período de retorno
+i=df2i(d,f,centroid1)                      # intensidade em mm/h
+units(i) = with(units::ud_units,m/s)       # converter para unidades SI
+C=0.4 # por exemplo                                    
+q = C*i*area
+q
 ```
