@@ -12,6 +12,6 @@ df2i = function(d,f,lugar)
     sf::as_Spatial(.)
 
   i_pred=gstat::idw(i~1,idf_sp,newdata=lugar_sp)
-  return(i_pred$var1.pred)
+  return(i_pred$var1.pred * with(units::ud_units, mm/h))
 
 }
