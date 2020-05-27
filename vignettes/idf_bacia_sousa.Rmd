@@ -11,7 +11,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Carregar bacias e definir o centróide e área
+# Carregar bacia e definir o centróide e área
 
 ```{r results='asis', warning=FALSE, message=FALSE}
 knitr::opts_chunk$set(
@@ -24,22 +24,25 @@ library(dplyr,warn.conflicts=FALSE)
 library(knitr,warn.conflicts=FALSE)
 library(idf)
 
-bacia1=st_read('~/proj/sra_salto/bacia_1')
+ponto=st_centroid(bacia)
 
-centroid1=st_centroid(bacia1)
-
-area=st_area(bacia1)
+area=st_area(bacia)
 ```
 
-# Carregar bacias e definir o centróide e área
+# Definir tempo de concentração e período de retorno
 
 
 ```{r results='asis', warning=FALSE, message=FALSE}
 d=lubridate::as.duration(185*60)            # atribuir valor do tempo de concentração
 f=100                                      # período de retorno
-i=df2i(d,f,centroid1)                      # intensidade em mm/h
+```
+
+# Aplicar IDFs e estimar
+
+```{r results='asis', warning=FALSE, message=FALSE}
+i=df2i(d,f,ponto)                      # intensidade em mm/h
 units(i) = with(units::ud_units,m/s)       # converter para unidades SI
-C=0.4 # por exemplo                                    
+C=0.4 # para bacia predominantemente agrícola                                   
 q = C*i*area
 q
 ```

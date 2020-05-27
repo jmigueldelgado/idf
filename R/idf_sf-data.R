@@ -17,3 +17,18 @@
 #' data(idf)
 #' \donttest{head(idf)}
 "idf_sf"
+
+#' Bacia hidrográfica do Rio Sousa na Senhora do Salto
+#'
+#' Obtida para servir de exemplo na aplicação das IDFs
+#'
+#' @docType data
+#'
+#' @usage data(bacia)
+#'
+#' @format An object of class \code{"sf"}.
+#'
+#' @examples
+#' data(bacia)
+#' \donttest{plot(bacia)}
+"bacia"
