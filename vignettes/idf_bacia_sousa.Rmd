@@ -22,10 +22,10 @@ knitr::opts_chunk$set(
 library(sf,warn.conflicts=FALSE)
 library(dplyr,warn.conflicts=FALSE)
 library(knitr,warn.conflicts=FALSE)
+library(lubridate)
 library(idf)
 
 ponto=st_centroid(bacia)
-
 area=st_area(bacia)
 ```
 
@@ -34,13 +34,14 @@ area=st_area(bacia)
 
 ```{r results='asis', warning=FALSE, message=FALSE}
 d=lubridate::as.duration(185*60)            # atribuir valor do tempo de concentração
-f=100                                      # período de retorno
+
+f=5                                      # período de retorno
 ```
 
 # Aplicar IDFs e estimar
 
 ```{r results='asis', warning=FALSE, message=FALSE}
-i=df2i(d,f,ponto)                      # intensidade em mm/h
+i=intensidade(d,f,ponto)                      # intensidade em mm/h
 units(i) = with(units::ud_units,m/s)       # converter para unidades SI
 C=0.4 # para bacia predominantemente agrícola                                   
 q = C*i*area
