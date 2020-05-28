@@ -18,7 +18,7 @@ Neste momento o pacote só está disponível para a região acima do Mondego.
 
 ## Exemplo
 
-Para um exemplo remeto à [vignette](vignettes/idf_bacia_sousa.Rmd)
+Para um exemplo remeto à [vignette](vignettes/idf_bacia_sousa.md)
 
 ## Bibliografia
 <a id="1">[1]</a> Brandão, C.; Rodrigues, R.; Costa, J. P. Análise de Fenómenos Extremos. Precipitações Intensas Em Portugal Continental. Direcção dos Serviços de Recursos Hídricos 2001, 64.
