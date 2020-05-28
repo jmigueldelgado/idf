@@ -2,11 +2,9 @@
 title: "IDFs para a bacia do rio Sousa na zona da Senhora do Salto"
 author: "JM Delgado"
 date: "`r Sys.Date()`"
-output:
-  slidy_presentation:
-    duration: 5    
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{IDFs para a bacia do rio Sousa na zona da Senhora do Salto}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -43,7 +41,7 @@ d=lubridate::as.duration(185*60)            # atribuir valor do tempo de concent
 f=5                                      # período de retorno
 ```
 
-# Aplicar IDFs e estimar
+# Aplicar IDFs e estimar intensidade
 
 ```{r results='asis', warning=FALSE, message=FALSE}
 i=intensidade(d,f,lugar)                      # intensidade em mm/h
