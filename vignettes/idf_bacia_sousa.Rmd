@@ -14,19 +14,24 @@ vignette: >
 # Carregar bacia e definir o centróide e área
 
 ```{r results='asis', warning=FALSE, message=FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+
+library(idf)
 
 library(sf,warn.conflicts=FALSE)
 library(dplyr,warn.conflicts=FALSE)
-library(knitr,warn.conflicts=FALSE)
 library(lubridate)
-library(idf)
 
-ponto=st_centroid(bacia)
+lugar=st_centroid(bacia)
 area=st_area(bacia)
+
+```
+
+Ou de forma ainda mais simples:
+
+```{r results='asis', warning=FALSE, message=FALSE}
+lugar=data.frame( long=-8.299, lat=41.232) %>%
+  st_as_sf(coords=c('long','lat'))
+st_crs(lugar)=4326
 ```
 
 # Definir tempo de concentração e período de retorno
@@ -41,7 +46,7 @@ f=5                                      # período de retorno
 # Aplicar IDFs e estimar
 
 ```{r results='asis', warning=FALSE, message=FALSE}
-i=intensidade(d,f,ponto)                      # intensidade em mm/h
+i=intensidade(d,f,lugar)                      # intensidade em mm/h
 units(i) = with(units::ud_units,m/s)       # converter para unidades SI
 C=0.4 # para bacia predominantemente agrícola                                   
 q = C*i*area
